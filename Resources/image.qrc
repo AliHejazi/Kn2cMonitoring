@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>Images/Wheel.jpg</file>
+        <file>Images/Processor-CPU-Motherboard-Board-Blue-Circuits-Circuit-Computer-WallpapersByte-com-1920x1080.jpg</file>
+        <file>Images/oneZero.jpg</file>
+        <file>Images/logor2.png</file>
+        <file>Images/images (1).jpg</file>
+        <file>Images/GoodCircuit.jpg</file>
+        <file>Images/FPGA&amp;Micro.jpg</file>
+        <file>Images/download.jpg</file>
+        <file>Images/Circuit_OverHeating.png</file>
+        <file>Images/Circuit_Black&amp;White.png</file>
+    </qresource>
+</RCC>

@@ -30,7 +30,8 @@ FORMS    += \
     UI/mainwindow.ui \
     UI/settingwindow.ui
 
-RESOURCES += \
-    images.qrc
-
 DISTFILES +=
+
+RESOURCES += \
+    Resources/image.qrc
+
