@@ -1,0 +1,19 @@
+#include "settingmenu.h"
+
+settingMenu::settingMenu(QWidget* parent):QMenuBar(parent)
+{
+}
+
+void settingMenu::mouseReleaseEvent(QMouseEvent* Event){
+    if(settingwindow == nullptr){
+        qDebug("i am here");
+
+        settingwindow = new settingWindow(this);
+        settingwindow->show();
+    }
+    else{
+        settingwindow->close();
+        delete settingwindow;
+        settingwindow = nullptr;
+    }
+}
