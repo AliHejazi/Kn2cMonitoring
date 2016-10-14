@@ -15,22 +15,30 @@ TEMPLATE = app
 SOURCES += main.cpp\
     UI/mainwindow.cpp \
     UI/wifi.cpp \
-    serial.cpp \
-    UI/settingmenu.cpp \
-    UI/settingwindow.cpp
+    UI/settingwindow.cpp \
+    UI/datawindow.cpp \
+    UI/tabwidget.cpp \
+    constants.cpp \
+    robotsdata.cpp
 
 HEADERS  += \
     UI/mainwindow.h \
     UI/wifi.h \
-    serial.h \
-    UI/settingmenu.h \
-    UI/settingwindow.h
+    UI/settingwindow.h \
+    UI/datawindow.h \
+    UI/tabwidget.h \
+    robotdata.h \
+    constants.h \
+    robotsdata.h
 
 FORMS    += \
     UI/mainwindow.ui \
-    UI/settingwindow.ui
+    UI/settingwindow.ui \
+    UI/datawindow.ui \
+    UI/tabwidget.ui
 
-DISTFILES +=
+DISTFILES += \
+    setting.ini
 
 RESOURCES += \
     Resources/image.qrc

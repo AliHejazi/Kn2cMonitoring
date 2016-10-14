@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>651</width>
+    <height>485</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget"/>
-  <widget class="settingMenu" name="menubar">
+  <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>651</width>
      <height>19</height>
     </rect>
    </property>
@@ -36,39 +36,82 @@
     <property name="title">
      <string>Setting</string>
     </property>
+    <addaction name="actionWifi_Settings"/>
+    <addaction name="actionData"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuSetting"/>
+   <addaction name="menuView"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNew">
+   <property name="icon">
+    <iconset resource="../Resources/image.qrc">
+     <normaloff>:/new/prefix1/Images/newFile.png</normaloff>:/new/prefix1/Images/newFile.png</iconset>
+   </property>
    <property name="text">
     <string>New ...</string>
    </property>
   </action>
   <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="../Resources/image.qrc">
+     <normaloff>:/new/prefix1/Images/openFileIcon.png</normaloff>:/new/prefix1/Images/openFileIcon.png</iconset>
+   </property>
    <property name="text">
     <string>Open</string>
    </property>
   </action>
   <action name="actionSave">
+   <property name="icon">
+    <iconset resource="../Resources/image.qrc">
+     <normaloff>:/new/prefix1/Images/saveIcon.png</normaloff>:/new/prefix1/Images/saveIcon.png</iconset>
+   </property>
    <property name="text">
     <string>Save</string>
    </property>
   </action>
   <action name="actionSave_as">
+   <property name="icon">
+    <iconset resource="../Resources/image.qrc">
+     <normaloff>:/new/prefix1/Images/saveIcon.png</normaloff>:/new/prefix1/Images/saveIcon.png</iconset>
+   </property>
    <property name="text">
     <string>Save as</string>
    </property>
   </action>
+  <action name="actionWifi_Settings">
+   <property name="icon">
+    <iconset resource="../Resources/image.qrc">
+     <normaloff>:/new/prefix1/Images/settingIcon.png</normaloff>:/new/prefix1/Images/settingIcon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Wifi Settings</string>
+   </property>
+  </action>
+  <action name="actionData">
+   <property name="icon">
+    <iconset resource="../Resources/image.qrc">
+     <normaloff>:/new/prefix1/Images/oneZeroIcon.png</normaloff>:/new/prefix1/Images/oneZeroIcon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Data</string>
+   </property>
+  </action>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>settingMenu</class>
-   <extends>QMenuBar</extends>
-   <header>UI/settingmenu.h</header>
-  </customwidget>
- </customwidgets>
- <resources/>
+ <resources>
+  <include location="../Resources/image.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -10,5 +10,14 @@
         <file>Images/download.jpg</file>
         <file>Images/Circuit_OverHeating.png</file>
         <file>Images/Circuit_Black&amp;White.png</file>
+        <file>Images/newFile.png</file>
+        <file>Images/openFileIcon.png</file>
+        <file>Images/saveIcon.png</file>
+        <file>Images/settingIcon.png</file>
+        <file>Images/oneZeroIcon.png</file>
+        <file>Images/veryLowSignal.png</file>
+        <file>Images/lowSignal.png</file>
+        <file>Images/highSignal.png</file>
+        <file>Images/mediumSignal.png</file>
     </qresource>
 </RCC>
