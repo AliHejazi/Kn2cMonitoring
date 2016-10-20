@@ -28,6 +28,8 @@ public:
     ~MainWindow();
     QSerialPort *getSerialPort() const;
     void setSerialPort(QSerialPort *value);
+    void loadSerialPort();
+    void seriaPortDebug();
 
 public slots:
     void manipulateData();
@@ -40,6 +42,10 @@ private slots:
     void on_actionOpen_triggered();
 
     void on_actionSave_triggered();
+
+    void on_pushButton_clicked();
+
+    void on_connectButton_clicked();
 
 private:
     Ui::MainWindow *ui;

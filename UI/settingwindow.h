@@ -21,13 +21,18 @@ public:
     ~settingWindow();
     void closeEvent(QCloseEvent* event);
     void printWifiSettins();
+    void loadUISettings();
+    void saveSerialPortSettings();
+    void saveDefaultSettings();
+    void seriaPortDebug();
 
 private slots:
-    void on_pushButton_clicked();
-
-    void on_pushButton_2_clicked();
 
     void on_saveAsDeafultPushButton_clicked();
+
+    void on_cancelButton_clicked();
+
+    void on_OKButton_clicked();
 
 private:
 

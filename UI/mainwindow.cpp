@@ -3,6 +3,12 @@
 #include "ui_datawindow.h"
 #include <QFileDialog>
 #include <QTextStream>
+#include <QDebug>
+#include <QThread>
+#include <QProgressDialog>
+#include <QErrorMessage>
+//hour
+#define MAX_EXECUTION_TIME 3
 
 QSerialPort *MainWindow::getSerialPort() const
 {
@@ -19,12 +25,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    robots = new robotsData(0);
-    settings = new QSettings("/home/jafar/kn2cMonitoring/source/setting.ini",QSettings::IniFormat);
+    settings = new QSettings(QApplication::applicationDirPath() + "/../source/setting.ini",QSettings::IniFormat);
     serialPort = new QSerialPort();
-//    settings->beginGroup("wifiSettings");
-        //tanzim setting
-//    settings->endGroup();
+    loadSerialPort();
+    seriaPortDebug();
 }
 
 MainWindow::~MainWindow()
@@ -75,10 +79,111 @@ void MainWindow::on_actionSave_triggered()
 }
 
 void MainWindow::manipulateData(){
-   data = data + serialPort->readAll();
-   QByteArray copyData(data);
-   QTextStream out(dataFile);
-   out << copyData;
-   out.flush();
-   robots->updateData(data);
+
+    data.push_back(serialPort->readAll());
+    robots->updateData(2);
+}
+
+
+///dont change
+void MainWindow::loadSerialPort(){
+    settings->beginGroup("wifiSettings");
+    //load name for serialPort
+    serialPort->setPortName(settings->value("PortName").toString());
+    //load baudrate for serialPort
+    serialPort->setBaudRate(settings->value("BaudRate").toInt());
+    //load databits for serialPort
+    switch(settings->value("DataBits").toInt()){
+    case 5:
+        serialPort->setDataBits(QSerialPort::DataBits::Data5);
+        break;
+    case 6:
+        serialPort->setDataBits(QSerialPort::DataBits::Data6);
+        break;
+    case 7:
+        serialPort->setDataBits(QSerialPort::DataBits::Data7);
+        break;
+    case 8:
+        serialPort->setDataBits(QSerialPort::DataBits::Data8);
+        break;
+    case -1:
+        serialPort->setDataBits(QSerialPort::DataBits::UnknownDataBits);
+        break;
+    }
+    //load flowcontrol for serialPort
+    if(settings->value("FlowControl").toString().compare("NoFlowControl") == 0)
+        serialPort->setFlowControl(QSerialPort::FlowControl::NoFlowControl);
+    if(settings->value("FlowControl").toString().compare("HardwareControl") == 0)
+        serialPort->setFlowControl(QSerialPort::FlowControl::HardwareControl);
+    if(settings->value("FlowControl").toString().compare("SoftwareControl") == 0)
+        serialPort->setFlowControl(QSerialPort::FlowControl::SoftwareControl);
+    if(settings->value("FlowControl").toString().compare("UnknownFlowControl") == 0)
+        serialPort->setFlowControl(QSerialPort::FlowControl::UnknownFlowControl);
+    //load Parity for serialPort
+    if(settings->value("Parity").toString().compare("NoParity") == 0)
+        serialPort->setParity(QSerialPort::Parity::NoParity);
+    if(settings->value("Parity").toString().compare("EvenParity") == 0)
+        serialPort->setParity(QSerialPort::Parity::EvenParity);
+    if(settings->value("Parity").toString().compare("OddParity") == 0)
+        serialPort->setParity(QSerialPort::Parity::OddParity);
+    if(settings->value("Parity").toString().compare("SpaceParity") == 0)
+        serialPort->setParity(QSerialPort::Parity::SpaceParity);
+    if(settings->value("Parity").toString().compare("MarkParity") == 0)
+        serialPort->setParity(QSerialPort::Parity::MarkParity);
+    if(settings->value("Parity").toString().compare("UnknownParity") == 0)
+        serialPort->setParity(QSerialPort::Parity::UnknownParity);
+    settings->endGroup();
+}
+
+void MainWindow::seriaPortDebug(){
+    qDebug("Wifi Settings");
+    qDebug() << "portName" << serialPort->portName();
+    qDebug() << "BaudRate = " << serialPort->baudRate();
+    qDebug() << serialPort->dataBits();
+    qDebug() << serialPort->parity();
+    qDebug() << serialPort->flowControl();
+}
+///dont change
+
+void MainWindow::on_pushButton_clicked()
+{
+    qDebug() << serialPort->readAll().size();
+}
+
+void MainWindow::on_connectButton_clicked()
+{
+    QProgressDialog *serialPortConnectingProgressDialog = new QProgressDialog("Connecting...","Cancle",0,6);
+    try{
+        if(!(serialPort->open(QSerialPort::OpenModeFlag::ReadOnly)))
+            throw true;
+        else
+            serialPortConnectingProgressDialog->setValue(1);
+    }
+    catch(bool exception){
+        if(exception){
+            (new QErrorMessage())->showMessage("Can not connect to serial Port!check wifi settings again.");
+            return;
+        }
+    }
+    serialPortConnectingProgressDialog->setLabelText("Initializing...");
+    QByteArray firstData;
+    try{
+        firstData = serialPort->readAll();
+        if(firstData.isEmpty())
+            throw true;
+        else
+            serialPortConnectingProgressDialog->setValue(3);
+    }
+    catch(bool exception){
+        if(exception){
+            (new QErrorMessage())->showMessage("No data received!Check your board again.");
+            return;
+        }
+    }
+    data = QByteArray(firstData.data(),51840000*MAX_EXECUTION_TIME);
+    serialPortConnectingProgressDialog->setValue(4);
+    robots = new robotsData(settings,data);
+    connect(serialPort,SIGNAL(readyRead()),this,SLOT(manipulateData()));
+    serialPortConnectingProgressDialog->setValue(6);
+    serialPortConnectingProgressDialog->close();
 }

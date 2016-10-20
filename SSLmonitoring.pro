@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     UI/datawindow.cpp \
     UI/tabwidget.cpp \
     constants.cpp \
-    robotsdata.cpp
+    robotsdata.cpp \
+    robotsensors.cpp
 
 HEADERS  += \
     UI/mainwindow.h \
@@ -27,9 +28,9 @@ HEADERS  += \
     UI/settingwindow.h \
     UI/datawindow.h \
     UI/tabwidget.h \
-    robotdata.h \
     constants.h \
-    robotsdata.h
+    robotsdata.h \
+    robotsensors.h
 
 FORMS    += \
     UI/mainwindow.ui \
