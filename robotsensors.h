@@ -18,7 +18,7 @@ public:
     void setSensorsNames(QVector<QString> &values);
     QVector<QString> getSensorsNames();
     int operator[](int index);
-    bool update(char *c);
+    void update(char *c);
 signals:
 
 public slots:

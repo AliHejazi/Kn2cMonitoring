@@ -7,6 +7,7 @@
 #include <QThread>
 #include <QProgressDialog>
 #include <QErrorMessage>
+#include <QThread>
 //hour
 #define MAX_EXECUTION_TIME 3
 
@@ -25,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->robotTabsWidgets->
     settings = new QSettings(QApplication::applicationDirPath() + "/../source/setting.ini",QSettings::IniFormat);
     serialPort = new QSerialPort();
     loadSerialPort();
@@ -80,8 +82,9 @@ void MainWindow::on_actionSave_triggered()
 
 void MainWindow::manipulateData(){
 
-    data.push_back(serialPort->readAll());
-    robots->updateData(2);
+    QByteArray newData = serialPort->readAll();
+    data->push_back(newData);
+    robots->updateData(newData.size());
 }
 
 
@@ -145,19 +148,11 @@ void MainWindow::seriaPortDebug(){
 }
 ///dont change
 
-void MainWindow::on_pushButton_clicked()
-{
-    qDebug() << serialPort->readAll().size();
-}
-
 void MainWindow::on_connectButton_clicked()
 {
-    QProgressDialog *serialPortConnectingProgressDialog = new QProgressDialog("Connecting...","Cancle",0,6);
     try{
-        if(!(serialPort->open(QSerialPort::OpenModeFlag::ReadOnly)))
+        if(!(serialPort->open(QIODevice::ReadOnly)))
             throw true;
-        else
-            serialPortConnectingProgressDialog->setValue(1);
     }
     catch(bool exception){
         if(exception){
@@ -165,25 +160,21 @@ void MainWindow::on_connectButton_clicked()
             return;
         }
     }
-    serialPortConnectingProgressDialog->setLabelText("Initializing...");
-    QByteArray firstData;
-    try{
-        firstData = serialPort->readAll();
-        if(firstData.isEmpty())
-            throw true;
-        else
-            serialPortConnectingProgressDialog->setValue(3);
-    }
-    catch(bool exception){
-        if(exception){
-            (new QErrorMessage())->showMessage("No data received!Check your board again.");
-            return;
-        }
-    }
-    data = QByteArray(firstData.data(),51840000*MAX_EXECUTION_TIME);
-    serialPortConnectingProgressDialog->setValue(4);
-    robots = new robotsData(settings,data);
+//    QByteArray firstData("FUCK U");
+//    try{
+//        firstData = serialPort->readAll();
+//        if(firstData.isEmpty())
+//            throw true;
+//    }
+//    catch(bool exception){
+//        if(exception){
+//            (new QErrorMessage())->showMessage("No data received!Check your board again.");
+//            return;
+//        }
+//    }
+    //51840000*MAX_EXECUTION_TIME
+    //2147483647
+    data = new QByteArray(NULL,2147483647);
+    robots = new robotsData(settings,data,1);    
     connect(serialPort,SIGNAL(readyRead()),this,SLOT(manipulateData()));
-    serialPortConnectingProgressDialog->setValue(6);
-    serialPortConnectingProgressDialog->close();
 }

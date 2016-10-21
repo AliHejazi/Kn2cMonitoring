@@ -17,7 +17,7 @@
    <widget class="QPushButton" name="connectButton">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>550</x>
       <y>10</y>
       <width>80</width>
       <height>22</height>
@@ -31,6 +31,19 @@
     </property>
     <property name="text">
      <string>Connect</string>
+    </property>
+   </widget>
+   <widget class="QTabWidget" name="robotTabsWidgets">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>511</width>
+      <height>411</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>-1</number>
     </property>
    </widget>
   </widget>

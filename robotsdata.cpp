@@ -1,28 +1,30 @@
 #include "robotsdata.h"
 #include <QDebug>
 
-robotsData::robotsData(QSettings *settings,QByteArray &data,QObject *parent) : QObject(parent)
+robotsData::robotsData(QSettings *settings,QByteArray *data,int firstDataSize,QObject *parent) : QObject(parent)
 {
-    this->ar = data.data();
+    this->ar = data->data();
+    size = firstDataSize;
     settings->beginGroup("Robot");
-    robots = QVector<robotSensors*>(settings->value("SensorsNumber").toInt());
+    currentIndex = 0;
+    robots = QVector<robotSensors*>(settings->value("RobotsNumber").toInt());
     settings->endGroup();
     for(int i = 0 ; i < robots.size() ; i++){
         robots[i] = new robotSensors(settings);
     }
 }
 
-bool robotsData::updateData(int size){
-//    char *ar = data.data();
-    for(int i = 0; i < size ; i++){
-//        if(isValid(&ar[i])){
-//            //check shavad
-//            robots[ar[i+1] - 97]->update(data->left(32).data());
-//            QByteArray refreshedData = data->right(data->size()-34);
-//            delete data;
-//            data = &refreshedData;
-//            return true;
-//        }
+bool robotsData::updateData(int newDataSize){
+    size += newDataSize;
+    for(; currentIndex < (size - 38) ; currentIndex++){
+        if(isValid(&ar[currentIndex])){
+            //check this idea
+            //currentIndex += 34
+            qDebug()<< (ar[currentIndex+1] - 97);
+            robots[ar[currentIndex+1] - 97]->update(&ar[currentIndex+2]);
+            currentIndex++;
+            return true;
+        }
     }
     return false;
 }

@@ -14,29 +14,27 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
     UI/mainwindow.cpp \
-    UI/wifi.cpp \
     UI/settingwindow.cpp \
     UI/datawindow.cpp \
-    UI/tabwidget.cpp \
     constants.cpp \
     robotsdata.cpp \
-    robotsensors.cpp
+    robotsensors.cpp \
+    UI/robotwidget.cpp
 
 HEADERS  += \
     UI/mainwindow.h \
-    UI/wifi.h \
     UI/settingwindow.h \
     UI/datawindow.h \
-    UI/tabwidget.h \
     constants.h \
     robotsdata.h \
-    robotsensors.h
+    robotsensors.h \
+    UI/robotwidget.h
 
 FORMS    += \
     UI/mainwindow.ui \
     UI/settingwindow.ui \
     UI/datawindow.ui \
-    UI/tabwidget.ui
+    UI/robotwidget.ui
 
 DISTFILES += \
     setting.ini

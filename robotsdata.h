@@ -13,8 +13,10 @@ class robotsData : public QObject
     Q_OBJECT
 public:
     char *ar;
+    int size;
+    int currentIndex;
     QVector<robotSensors*> robots;
-    explicit robotsData(QSettings *, QByteArray &data, QObject *parent = 0);
+    explicit robotsData(QSettings *, QByteArray *data,int firstDataSize, QObject *parent = 0);
     bool updateData(int size);
     bool isValid(char*);
 signals:

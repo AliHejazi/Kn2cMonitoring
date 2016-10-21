@@ -22,7 +22,7 @@ public:
     QFile* dataFile;
     QSettings* settings;
     robotsData* robots;
-    QByteArray data;
+    QByteArray* data;
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
@@ -42,8 +42,6 @@ private slots:
     void on_actionOpen_triggered();
 
     void on_actionSave_triggered();
-
-    void on_pushButton_clicked();
 
     void on_connectButton_clicked();
 
