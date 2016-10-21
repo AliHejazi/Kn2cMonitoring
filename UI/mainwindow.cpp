@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->robotTabsWidgets->
+
     settings = new QSettings(QApplication::applicationDirPath() + "/../source/setting.ini",QSettings::IniFormat);
     serialPort = new QSerialPort();
     loadSerialPort();
