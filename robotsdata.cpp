@@ -1,12 +1,10 @@
 #include "robotsdata.h"
 #include <QDebug>
 
-robotsData::robotsData(QSettings *settings,QByteArray *data,int firstDataSize,QObject *parent) : QObject(parent)
+robotsData::robotsData(QSettings *settings,QObject *parent) : QObject(parent)
 {
-    this->ar = data->data();
-    size = firstDataSize;
+    data = new QByteArray();
     settings->beginGroup("Robot");
-    currentIndex = 0;
     robots = QVector<robotSensors*>(settings->value("RobotsNumber").toInt());
     settings->endGroup();
     for(int i = 0 ; i < robots.size() ; i++){
@@ -14,15 +12,14 @@ robotsData::robotsData(QSettings *settings,QByteArray *data,int firstDataSize,QO
     }
 }
 
-bool robotsData::updateData(int newDataSize){
-    size += newDataSize;
-    for(; currentIndex < (size - 38) ; currentIndex++){
-        if(isValid(&ar[currentIndex])){
-            //check this idea
-            //currentIndex += 34
-            qDebug()<< (ar[currentIndex+1] - 97);
-            robots[ar[currentIndex+1] - 97]->update(&ar[currentIndex+2]);
-            currentIndex++;
+bool robotsData::updateData(QByteArray& newData){
+    data->append(newData);
+    char *ar = data->data();
+    for(int i = 0 ; i < data->size() ; i++){
+        if(isValid(&ar[i])){
+            qDebug() << "Robot" << (ar[i+1] - 97);
+            robots[ar[i+1] - 97]->update(&ar[i+2]);
+            data->remove(0,i+34);
             return true;
         }
     }

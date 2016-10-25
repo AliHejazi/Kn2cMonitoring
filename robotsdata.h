@@ -6,18 +6,17 @@
 #include <QObject>
 #include <QtCore>
 #include <QtGui>
+#include <QByteArray>
 
 
 class robotsData : public QObject
 {
     Q_OBJECT
 public:
-    char *ar;
-    int size;
-    int currentIndex;
+    QByteArray* data;
     QVector<robotSensors*> robots;
-    explicit robotsData(QSettings *, QByteArray *data,int firstDataSize, QObject *parent = 0);
-    bool updateData(int size);
+    explicit robotsData(QSettings *,QObject *parent = 0);
+    bool updateData(QByteArray& newData);
     bool isValid(char*);
 signals:
 

@@ -6,70 +6,85 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>840</width>
-    <height>674</height>
+    <width>983</width>
+    <height>584</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QGraphicsView" name="graphicsView">
+  <widget class="QGraphicsView" name="microTemperatureGraphicsView">
    <property name="geometry">
     <rect>
-     <x>450</x>
-     <y>30</y>
-     <width>121</width>
-     <height>91</height>
+     <x>30</x>
+     <y>0</y>
+     <width>21</width>
+     <height>21</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">border-image: url(:/new/prefix1/Images/GoodCircuit.jpg);</string>
    </property>
   </widget>
-  <widget class="QGraphicsView" name="wifiGraphicsView">
-   <property name="geometry">
-    <rect>
-     <x>710</x>
-     <y>60</y>
-     <width>51</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">border-image: url(:/new/prefix1/Images/veryLowSignal.png);</string>
-   </property>
-  </widget>
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>30</y>
+     <y>26</y>
      <width>421</width>
-     <height>97</height>
+     <height>101</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="3">
-     <widget class="QDial" name="dial"/>
+    <item row="1" column="1">
+     <widget class="QDial" name="currentMotor1Dial"/>
     </item>
-    <item row="0" column="0">
-     <widget class="QDial" name="dial_3"/>
+    <item row="1" column="3">
+     <widget class="QDial" name="currentMotor3Dial"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QDial" name="currentMotor0Dial"/>
+    </item>
+    <item row="1" column="2">
+     <widget class="QDial" name="currentMotor2Dial"/>
     </item>
     <item row="0" column="2">
-     <widget class="QDial" name="dial_2"/>
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>Motor 3 Current</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>Motor 4 Current</string>
+      </property>
+     </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QDial" name="dial_4"/>
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Motor 2 Current</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Motor 1 Current</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
-  <widget class="QProgressBar" name="progressBar">
+  <widget class="QProgressBar" name="batteryProgressBar">
    <property name="geometry">
     <rect>
-     <x>590</x>
-     <y>30</y>
+     <x>930</x>
+     <y>90</y>
      <width>41</width>
-     <height>95</height>
+     <height>481</height>
     </rect>
    </property>
    <property name="acceptDrops">
@@ -97,13 +112,13 @@
     <string>%p%</string>
    </property>
   </widget>
-  <widget class="QProgressBar" name="progressBar_2">
+  <widget class="QProgressBar" name="capacitorProgressBar">
    <property name="geometry">
     <rect>
-     <x>640</x>
-     <y>30</y>
+     <x>880</x>
+     <y>90</y>
      <width>41</width>
-     <height>95</height>
+     <height>481</height>
     </rect>
    </property>
    <property name="value">
@@ -113,7 +128,7 @@
     <enum>Qt::Vertical</enum>
    </property>
   </widget>
-  <widget class="QWidget" name="widget_4" native="true">
+  <widget class="QCustomPlot" name="currentMotor0Widget" native="true">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -123,17 +138,226 @@
     </rect>
    </property>
   </widget>
-  <widget class="QWidget" name="widget" native="true">
+  <widget class="QCustomPlot" name="currentMotor1Widget" native="true">
    <property name="geometry">
     <rect>
-     <x>310</x>
-     <y>140</y>
-     <width>321</width>
+     <x>300</x>
+     <y>130</y>
+     <width>281</width>
      <height>211</height>
     </rect>
    </property>
   </widget>
+  <widget class="QCustomPlot" name="currentMotor2Widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>360</y>
+     <width>281</width>
+     <height>211</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QCustomPlot" name="currentMotor3Widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>360</y>
+     <width>281</width>
+     <height>211</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QCustomPlot" name="batteryWidget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>590</x>
+     <y>130</y>
+     <width>281</width>
+     <height>211</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QCustomPlot" name="capacitorWidget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>590</x>
+     <y>360</y>
+     <width>281</width>
+     <height>211</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QGraphicsView" name="wifiGraphicsView">
+   <property name="geometry">
+    <rect>
+     <x>900</x>
+     <y>20</y>
+     <width>51</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/new/prefix1/Images/veryLowSignal.png);</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget_4">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>20</y>
+     <width>160</width>
+     <height>105</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_4">
+    <item row="1" column="0">
+     <widget class="QToolButton" name="freeWheelWirelessToolButton">
+      <property name="text">
+       <string>free Wheel wireless</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="freeWheelBatteryToolButton">
+      <property name="text">
+       <string>free Wheel Battery</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QToolButton" name="freeWheelMotorToolButton">
+      <property name="text">
+       <string>free Wheel Motor</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QToolButton" name="LastKickOrderToolButton">
+      <property name="text">
+       <string>Last Kick Order</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget_3">
+   <property name="geometry">
+    <rect>
+     <x>610</x>
+     <y>10</y>
+     <width>250</width>
+     <height>112</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_3">
+    <item row="2" column="0">
+     <widget class="QLabel" name="Cycle_usLabel">
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>cycle time us</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLCDNumber" name="dataReceivedPacketLCDNumber"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="dataReceivedLabel">
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>dataReceived</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLCDNumber" name="dataSenderPacketLCDNumber"/>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLCDNumber" name="CycleTimeusLCDNumber"/>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="dataSenderLabel">
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>data send packet</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="wirelessCounterLabel">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>wireless reset counter</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLCDNumber" name="wirelessResetCounter"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QLabel" name="batteryLabel">
+   <property name="geometry">
+    <rect>
+     <x>930</x>
+     <y>70</y>
+     <width>41</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>battery</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>870</x>
+     <y>70</y>
+     <width>59</width>
+     <height>14</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>capacitor</string>
+   </property>
+  </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

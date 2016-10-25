@@ -2,11 +2,11 @@
 #include "ui_datawindow.h"
 #include <QCloseEvent>
 #include <QThread>
+#include <QString>
 
-dataWindow::dataWindow(QWidget *parent ,QSerialPort* serialPort):
+dataWindow::dataWindow(QWidget *parent):
     QMainWindow(parent),
-    ui(new Ui::dataWindow),
-    serialPort(serialPort)
+    ui(new Ui::dataWindow)
 {
     ui->setupUi(this);
 }
@@ -16,15 +16,8 @@ dataWindow::~dataWindow()
     delete ui;
 }
 
-void dataWindow::PrintData(){
-    QThread::currentThread()->msleep(300);
-//    ui->DatatextBrowser->setText(serialPort->rea);
-    ui->DatatextBrowser->setText(QString::fromStdString(serialPort->readAll().toStdString()));
+void dataWindow::PrintData(QByteArray *data){
+    s.append(data->data());
+    ui->DatatextBrowser->setText(s);
 }
 
-void dataWindow::closeEvent(QCloseEvent *event)
-{
-    disconnect(serialPort,SIGNAL(readyRead()),this,SLOT(PrintData()));
-    event->accept();
-    delete this;
-}

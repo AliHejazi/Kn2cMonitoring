@@ -6,6 +6,8 @@
 #include <QStringList>
 #include <QObject>
 #include <QSettings>
+#include <QByteArray>
+#include "UI/robotwidget.h"
 
 class robotSensors : public QObject
 {
@@ -14,14 +16,14 @@ public:
     static int sensorNumber;
     QVector <QPair<QString,int>> sensors;
     QVector <QPair<int,int>> byteIndex;
+    void invertByIndex(char* s);
     explicit robotSensors(QSettings* settings,QObject *parent = 0);
     void setSensorsNames(QVector<QString> &values);
     QVector<QString> getSensorsNames();
     int operator[](int index);
     void update(char *c);
 signals:
-
-public slots:
+    void valueChanged(QVector<QPair<QString ,int > > value);
 };
 
 #endif // ROBOTSENSORS_H

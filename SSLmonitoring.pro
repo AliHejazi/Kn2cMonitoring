@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     constants.cpp \
     robotsdata.cpp \
     robotsensors.cpp \
-    UI/robotwidget.cpp
+    UI/robotwidget.cpp \
+    qcustomplot.cpp
 
 HEADERS  += \
     UI/mainwindow.h \
@@ -28,7 +29,8 @@ HEADERS  += \
     constants.h \
     robotsdata.h \
     robotsensors.h \
-    UI/robotwidget.h
+    UI/robotwidget.h \
+    qcustomplot.h
 
 FORMS    += \
     UI/mainwindow.ui \

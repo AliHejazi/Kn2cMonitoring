@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "ui_datawindow.h"
 #include <QFileDialog>
 #include <QTextStream>
 #include <QDebug>
@@ -8,8 +7,6 @@
 #include <QProgressDialog>
 #include <QErrorMessage>
 #include <QThread>
-//hour
-#define MAX_EXECUTION_TIME 3
 
 QSerialPort *MainWindow::getSerialPort() const
 {
@@ -26,7 +23,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     settings = new QSettings(QApplication::applicationDirPath() + "/../source/setting.ini",QSettings::IniFormat);
     serialPort = new QSerialPort();
     loadSerialPort();
@@ -48,9 +44,8 @@ void MainWindow::on_actionWifi_Settings_triggered()
 
 void MainWindow::on_actionData_triggered()
 {
-    dataWin = new dataWindow(this,serialPort);
+    dataWin = new dataWindow(this);
     dataWin->show();
-    connect(serialPort,SIGNAL(readyRead()),dataWin,SLOT(PrintData()));
 }
 
 void MainWindow::on_actionNew_triggered()
@@ -81,10 +76,11 @@ void MainWindow::on_actionSave_triggered()
 }
 
 void MainWindow::manipulateData(){
-
     QByteArray newData = serialPort->readAll();
-    data->push_back(newData);
-    robots->updateData(newData.size());
+    if((dataWin != nullptr) && (dataWin->isActiveWindow())){
+        dataWin->PrintData(new QByteArray(newData));
+    }
+    robots->updateData(newData);
 }
 
 
@@ -151,7 +147,18 @@ void MainWindow::seriaPortDebug(){
 void MainWindow::on_connectButton_clicked()
 {
     try{
-        if(!(serialPort->open(QIODevice::ReadOnly)))
+        if(serialPort->open(QIODevice::ReadOnly)){
+            robots = new robotsData(settings);
+            settings->beginGroup("Robot");
+            robotTabs = QVector<RobotWidget *>(settings->value("RobotsNumber").toInt());
+            for(int i = 0 ; i < robotTabs.size() ; i++){
+                robotTabs[i] = new RobotWidget(i,settings);
+                ui->robotTabsWidgets->addTab(robotTabs[i],QString("Robot") + QString::number(i+1));
+                connect(robots->robots[i],SIGNAL(valueChanged(QVector<QPair<QString,int> >)),robotTabs[i],SLOT(update(QVector<QPair<QString,int> >)));
+            }
+            settings->endGroup();
+        }
+        else
             throw true;
     }
     catch(bool exception){
@@ -160,21 +167,13 @@ void MainWindow::on_connectButton_clicked()
             return;
         }
     }
-//    QByteArray firstData("FUCK U");
-//    try{
-//        firstData = serialPort->readAll();
-//        if(firstData.isEmpty())
-//            throw true;
-//    }
-//    catch(bool exception){
-//        if(exception){
-//            (new QErrorMessage())->showMessage("No data received!Check your board again.");
-//            return;
-//        }
-//    }
-    //51840000*MAX_EXECUTION_TIME
-    //2147483647
-    data = new QByteArray(NULL,2147483647);
-    robots = new robotsData(settings,data,1);    
     connect(serialPort,SIGNAL(readyRead()),this,SLOT(manipulateData()));
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+//    if(fuckinpointer != data->data()){
+//        qDebug()<<"FFFFFFFFFFFF";
+//    }
+//    qDebug()<<*data;
 }

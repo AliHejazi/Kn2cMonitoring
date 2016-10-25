@@ -4,9 +4,11 @@
 #include <QSerialPort>
 #include <QFile>
 #include <QSettings>
+#include <QVector>
 #include "settingwindow.h"
 #include "datawindow.h"
 #include "robotsdata.h"
+#include "robotwidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -16,13 +18,14 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 public:
+    char* fuckinpointer;
     settingWindow* settingWin;
     QSerialPort* serialPort;
     dataWindow* dataWin;
     QFile* dataFile;
     QSettings* settings;
     robotsData* robots;
-    QByteArray* data;
+    QVector<RobotWidget *> robotTabs;
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
@@ -44,6 +47,8 @@ private slots:
     void on_actionSave_triggered();
 
     void on_connectButton_clicked();
+
+    void on_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -27,19 +27,28 @@ robotSensors::robotSensors(QSettings* settings,QObject *parent) : QObject(parent
 }
 
 void robotSensors::update(char *c){
+    invertByIndex(c);
     for(int i = 0 ; i < sensors.size() ; i++){
         if((byteIndex[i].second - byteIndex[i].first) == 0)
-            sensors[i].second = (int)((qint8)c[byteIndex[i].first - 1]);
-        if((byteIndex[i].second - byteIndex[i].first) == 1)
-            sensors[i].second = (int)((qint16)c[byteIndex[i].first - 1]);
-        if((byteIndex[i].second - byteIndex[i].first) == 2)
-            sensors[i].second = (int)((qint32)c[byteIndex[i].first - 1]);
-        if((byteIndex[i].second - byteIndex[i].first) == 3)
-            sensors[i].second = (int)((qint64)c[byteIndex[i].first - 1]);
+            sensors[i].second = (int)c[byteIndex[i].first];
+        if((byteIndex[i].second - byteIndex[i].first) == 1){
+            short int *b = reinterpret_cast<short int*>(&c[byteIndex[i].first]);
+            short int d = *b;
+            sensors[i].second = d;
+        }
         qDebug()<< sensors[i].first << " = " << sensors[i].second;
     }
+    emit valueChanged(sensors);
 }
 
 int robotSensors::operator [](int index){
     return sensors[index].second;
+}
+
+void robotSensors::invertByIndex(char* s){
+    for(int i = 0 ; i < byteIndex.size() ; i++){
+        char hold = s[byteIndex[i].first];
+        s[byteIndex[i].first] = s[byteIndex[i].second];
+        s[byteIndex[i].second] = hold;
+    }
 }
