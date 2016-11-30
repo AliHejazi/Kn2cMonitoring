@@ -19,7 +19,6 @@ public:
     QMainWindow* mainWindow;
     explicit settingWindow(QMainWindow* mianWindow,QSettings* setting,QSerialPort* serialPort);
     ~settingWindow();
-    void closeEvent(QCloseEvent* event);
     void printWifiSettins();
     void loadUISettings();
     void saveSerialPortSettings();

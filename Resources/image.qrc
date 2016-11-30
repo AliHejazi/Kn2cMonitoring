@@ -19,5 +19,17 @@
         <file>Images/lowSignal.png</file>
         <file>Images/highSignal.png</file>
         <file>Images/mediumSignal.png</file>
+        <file>Images/Disconnecting.png</file>
+        <file>Images/warning.png</file>
+        <file>Images/tick.png</file>
+        <file>Images/controllerIcon.png</file>
+        <file>Images/Debug.png</file>
+        <file>Images/monitorIcon.png</file>
+        <file>Images/sslRobot.jpg</file>
+        <file>Images/batterylow.png</file>
+        <file>Images/process.gif</file>
+        <file>Images/RedSquare.jpg</file>
+        <file>Images/Off.png</file>
+        <file>Images/off2.png</file>
     </qresource>
 </RCC>

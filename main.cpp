@@ -2,6 +2,10 @@
 #include <QApplication>
 #include <QSerialPortInfo>
 #include <iostream>
+#include <QFile>
+#include <QTextStream>
+
+
 
 int main(int argc, char *argv[])
 {

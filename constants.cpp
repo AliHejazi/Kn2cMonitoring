@@ -1,5 +1,10 @@
 #include "constants.h"
 
 namespace  ROBOTSCONSTANTS {
-int robotNumber = 6;
+int CURRENT_MAX;
+int CURRENT_MIN;
+int CURRENT_MAX_DANGER;
+int BATTERY_MAX;
+int BATTERY_MIN_DANGER;
+int WIRELESS_RESET_COUNTER_MAX_DANGER;
 }

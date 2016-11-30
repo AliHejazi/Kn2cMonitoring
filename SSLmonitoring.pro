@@ -16,11 +16,11 @@ SOURCES += main.cpp\
     UI/mainwindow.cpp \
     UI/settingwindow.cpp \
     UI/datawindow.cpp \
-    constants.cpp \
     robotsdata.cpp \
     robotsensors.cpp \
     UI/robotwidget.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    UI/debugwidget.cpp
 
 HEADERS  += \
     UI/mainwindow.h \
@@ -30,13 +30,15 @@ HEADERS  += \
     robotsdata.h \
     robotsensors.h \
     UI/robotwidget.h \
-    qcustomplot.h
+    qcustomplot.h \
+    UI/debugwidget.h
 
 FORMS    += \
     UI/mainwindow.ui \
     UI/settingwindow.ui \
     UI/datawindow.ui \
-    UI/robotwidget.ui
+    UI/robotwidget.ui \
+    UI/debugwidget.ui
 
 DISTFILES += \
     setting.ini

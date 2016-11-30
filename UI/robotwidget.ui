@@ -13,52 +13,23 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QGraphicsView" name="microTemperatureGraphicsView">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>0</y>
-     <width>21</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">border-image: url(:/new/prefix1/Images/GoodCircuit.jpg);</string>
-   </property>
-  </widget>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>26</y>
-     <width>421</width>
-     <height>101</height>
+     <x>0</x>
+     <y>0</y>
+     <width>441</width>
+     <height>128</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="1">
-     <widget class="QDial" name="currentMotor1Dial"/>
-    </item>
-    <item row="1" column="3">
-     <widget class="QDial" name="currentMotor3Dial"/>
-    </item>
-    <item row="1" column="0">
-     <widget class="QDial" name="currentMotor0Dial"/>
-    </item>
-    <item row="1" column="2">
-     <widget class="QDial" name="currentMotor2Dial"/>
-    </item>
-    <item row="0" column="2">
-     <widget class="QLabel" name="label_3">
-      <property name="text">
-       <string>Motor 3 Current</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="3">
-     <widget class="QLabel" name="label_4">
-      <property name="text">
-       <string>Motor 4 Current</string>
+    <item row="2" column="2">
+     <widget class="QDial" name="currentMotor2Dial">
+      <property name="notchesVisible">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -69,10 +40,57 @@
       </property>
      </widget>
     </item>
+    <item row="2" column="0">
+     <widget class="QDial" name="currentMotor0Dial">
+      <property name="invertedAppearance">
+       <bool>false</bool>
+      </property>
+      <property name="invertedControls">
+       <bool>false</bool>
+      </property>
+      <property name="wrapping">
+       <bool>false</bool>
+      </property>
+      <property name="notchesVisible">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>Motor 4 Current</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="3">
+     <widget class="QDial" name="currentMotor3Dial">
+      <property name="notchesVisible">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
     <item row="0" column="0">
      <widget class="QLabel" name="label">
       <property name="text">
        <string>Motor 1 Current</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>Motor 3 Current</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QDial" name="currentMotor1Dial">
+      <property name="wrapping">
+       <bool>false</bool>
+      </property>
+      <property name="notchesVisible">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -94,7 +112,7 @@
     <bool>false</bool>
    </property>
    <property name="value">
-    <number>24</number>
+    <number>0</number>
    </property>
    <property name="alignment">
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -121,11 +139,17 @@
      <height>481</height>
     </rect>
    </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
    <property name="value">
-    <number>24</number>
+    <number>0</number>
    </property>
    <property name="orientation">
     <enum>Qt::Vertical</enum>
+   </property>
+   <property name="invertedAppearance">
+    <bool>false</bool>
    </property>
   </widget>
   <widget class="QCustomPlot" name="currentMotor0Widget" native="true">

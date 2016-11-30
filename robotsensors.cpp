@@ -24,21 +24,36 @@ robotSensors::robotSensors(QSettings* settings,QObject *parent) : QObject(parent
         settings->endGroup();
         byteIndex[i] = QPair<int,int>(startBit,stopBit);
     }
+    equallityToPast = 0;
 }
 
 void robotSensors::update(char *c){
     invertByIndex(c);
+    int pastData;
+    int numOfEquallDataToPast = 0;
     for(int i = 0 ; i < sensors.size() ; i++){
-        if((byteIndex[i].second - byteIndex[i].first) == 0)
+        if((byteIndex[i].second - byteIndex[i].first) == 0){
+            pastData = sensors[i].second;
             sensors[i].second = (int)c[byteIndex[i].first];
+            if(pastData == sensors[i].second)
+                numOfEquallDataToPast++;
+        }
         if((byteIndex[i].second - byteIndex[i].first) == 1){
+            pastData = sensors[i].second;
             short int *b = reinterpret_cast<short int*>(&c[byteIndex[i].first]);
             short int d = *b;
             sensors[i].second = d;
+            if(pastData == sensors[i].second)
+                numOfEquallDataToPast++;
         }
         qDebug()<< sensors[i].first << " = " << sensors[i].second;
     }
-    emit valueChanged(sensors);
+    if(numOfEquallDataToPast == sensors.size())
+        equallityToPast++;
+    else
+        equallityToPast = 0;
+    if(equallityToPast < 2)
+        emit valueChanged(sensors);
 }
 
 int robotSensors::operator [](int index){

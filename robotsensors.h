@@ -13,6 +13,7 @@ class robotSensors : public QObject
 {
     Q_OBJECT
 public:
+    int equallityToPast;
     static int sensorNumber;
     QVector <QPair<QString,int>> sensors;
     QVector <QPair<int,int>> byteIndex;

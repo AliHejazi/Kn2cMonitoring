@@ -20,10 +20,10 @@ bool robotsData::updateData(QByteArray& newData){
             qDebug() << "Robot" << (ar[i+1] - 97);
             robots[ar[i+1] - 97]->update(&ar[i+2]);
             data->remove(0,i+34);
-            return true;
+            ar = data->data();
         }
     }
-    return false;
+    return true;
 }
 
 bool robotsData::isValid(char* c){

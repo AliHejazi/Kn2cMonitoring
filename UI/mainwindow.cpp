@@ -7,6 +7,7 @@
 #include <QProgressDialog>
 #include <QErrorMessage>
 #include <QThread>
+#include <QTabWidget>
 
 QSerialPort *MainWindow::getSerialPort() const
 {
@@ -25,8 +26,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     settings = new QSettings(QApplication::applicationDirPath() + "/../source/setting.ini",QSettings::IniFormat);
     serialPort = new QSerialPort();
+    dataFile = new QFile();
     loadSerialPort();
     seriaPortDebug();
+    dataWin = new dataWindow(this);
+    settingWin = new settingWindow(this,settings,serialPort);
 }
 
 MainWindow::~MainWindow()
@@ -36,15 +40,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionWifi_Settings_triggered()
 {
-    settingWin = new settingWindow(this,settings,serialPort);
     settingWin->show();
     this->setDisabled(true);
 }
 
-
 void MainWindow::on_actionData_triggered()
 {
-    dataWin = new dataWindow(this);
     dataWin->show();
 }
 
@@ -77,7 +78,11 @@ void MainWindow::on_actionSave_triggered()
 
 void MainWindow::manipulateData(){
     QByteArray newData = serialPort->readAll();
-    if((dataWin != nullptr) && (dataWin->isActiveWindow())){
+    if (dataFile->isOpen()){
+        QTextStream ts(dataFile);
+        ts << (new QByteArray(newData))->data();
+    }
+    if(dataWin->isVisible()){
         dataWin->PrintData(new QByteArray(newData));
     }
     robots->updateData(newData);
@@ -151,12 +156,20 @@ void MainWindow::on_connectButton_clicked()
             robots = new robotsData(settings);
             settings->beginGroup("Robot");
             robotTabs = QVector<RobotWidget *>(settings->value("RobotsNumber").toInt());
+            settings->endGroup();
+            ui->robotTabsWidgets->setTabShape(QTabWidget::Triangular);
             for(int i = 0 ; i < robotTabs.size() ; i++){
-                robotTabs[i] = new RobotWidget(i,settings);
+                robotTabs[i] = new RobotWidget(ui->robotTabsWidgets,i,settings);
                 ui->robotTabsWidgets->addTab(robotTabs[i],QString("Robot") + QString::number(i+1));
                 connect(robots->robots[i],SIGNAL(valueChanged(QVector<QPair<QString,int> >)),robotTabs[i],SLOT(update(QVector<QPair<QString,int> >)));
             }
+            settings->beginGroup("Robot");
+            debugTabs = QVector<debugWidget *>(settings->value("RobotsNumber").toInt());
             settings->endGroup();
+            for(int i = 0 ; i < debugTabs.size() ; i++){
+                debugTabs[i] = new debugWidget(settings);
+                connect(robots->robots[i],SIGNAL(valueChanged(QVector<QPair<QString,int> >)),debugTabs[i],SLOT(update(QVector<QPair<QString,int> >)));
+            }
         }
         else
             throw true;
@@ -170,10 +183,22 @@ void MainWindow::on_connectButton_clicked()
     connect(serialPort,SIGNAL(readyRead()),this,SLOT(manipulateData()));
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_actionDebug_data_triggered()
 {
-//    if(fuckinpointer != data->data()){
-//        qDebug()<<"FFFFFFFFFFFF";
-//    }
-//    qDebug()<<*data;
+    for(int i = 0 ; i < robotTabs.size() ; i++){
+        ui->robotTabsWidgets->removeTab(0);
+    }
+    for(int i = 0 ; i < debugTabs.size() ; i++){
+        ui->robotTabsWidgets->addTab(debugTabs[i],QString("Robot") + QString::number(i+1));
+    }
+}
+
+void MainWindow::on_actionMonitoring_data_triggered()
+{
+    for(int i = 0 ; i < robotTabs.size() ; i++){
+        ui->robotTabsWidgets->removeTab(0);
+    }
+    for(int i = 0 ; i < debugTabs.size() ; i++){
+        ui->robotTabsWidgets->addTab(robotTabs[i],QString("Robot") + QString::number(i+1));
+    }
 }

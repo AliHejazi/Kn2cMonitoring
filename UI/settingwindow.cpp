@@ -6,9 +6,9 @@
 #include "main.cpp"
 
 settingWindow::settingWindow(QMainWindow* mainWindow, QSettings* setting, QSerialPort* serialPort):
+    ui(new Ui::settingWindow),
     QMainWindow(),
     mainWindow(mainWindow),
-    ui(new Ui::settingWindow),
     serialPort(serialPort),
     setting(setting)
 {
@@ -63,12 +63,6 @@ void settingWindow::on_OKButton_clicked()
     mainWindow->setEnabled(true);
     this->close();
 }
-
-void settingWindow::closeEvent(QCloseEvent* event){
-    mainWindow->setEnabled(true);
-    event->accept();
-}
-
 
 void settingWindow::on_cancelButton_clicked()
 {

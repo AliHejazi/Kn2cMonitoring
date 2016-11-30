@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1199</width>
-    <height>683</height>
+    <width>1376</width>
+    <height>821</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <widget class="QPushButton" name="connectButton">
     <property name="geometry">
      <rect>
-      <x>1110</x>
+      <x>1230</x>
       <y>10</y>
       <width>80</width>
       <height>22</height>
@@ -38,37 +38,35 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>1081</width>
-      <height>631</height>
+      <width>1141</width>
+      <height>761</height>
      </rect>
     </property>
     <property name="currentIndex">
      <number>-1</number>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>1110</x>
-      <y>100</y>
-      <width>80</width>
-      <height>22</height>
+      <x>1159</x>
+      <y>39</y>
+      <width>211</width>
+      <height>731</height>
      </rect>
     </property>
-    <property name="text">
-     <string>fucking test</string>
-    </property>
+    <layout class="QGridLayout" name="gridLayout"/>
    </widget>
    <zorder>robotTabsWidgets</zorder>
    <zorder>connectButton</zorder>
-   <zorder>pushButton</zorder>
+   <zorder>gridLayoutWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1199</width>
+     <width>1376</width>
      <height>19</height>
     </rect>
    </property>
@@ -92,6 +90,8 @@
     <property name="title">
      <string>View</string>
     </property>
+    <addaction name="actionDebug_data"/>
+    <addaction name="actionMonitoring_data"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -156,6 +156,33 @@
    </property>
    <property name="text">
     <string>Data</string>
+   </property>
+  </action>
+  <action name="actionController">
+   <property name="icon">
+    <iconset resource="../Resources/image.qrc">
+     <normaloff>:/new/prefix1/Images/controllerIcon.png</normaloff>:/new/prefix1/Images/controllerIcon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Controller</string>
+   </property>
+  </action>
+  <action name="actionDebug_data">
+   <property name="icon">
+    <iconset resource="../Resources/image.qrc">
+     <normaloff>:/new/prefix1/Images/Debug.png</normaloff>:/new/prefix1/Images/Debug.png</iconset>
+   </property>
+   <property name="text">
+    <string>Debug data</string>
+   </property>
+  </action>
+  <action name="actionMonitoring_data">
+   <property name="icon">
+    <iconset resource="../Resources/image.qrc">
+     <normaloff>:/new/prefix1/Images/monitorIcon.png</normaloff>:/new/prefix1/Images/monitorIcon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Monitoring data</string>
    </property>
   </action>
  </widget>
