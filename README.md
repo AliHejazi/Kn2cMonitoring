@@ -1,2 +1,2 @@
 # Kn2cMonitoring
-Monitoring Software for Knt2c ssl team
+Monitoring Software for Kn2c ssl team
